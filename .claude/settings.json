@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/jasper./TRAE_crawler/**)",
+      "Read(//Users/jasper./TRAE_data_dive/**)",
+      "Read(//Users/jasper./.streamlit/**)",
+      "Read(//Users/jasper./TRAE_BA.writting/**)",
+      "Bash(pip3 list)",
+      "Bash(chmod +x /Users/jasper./TRAE_AI投资策略/run.sh)",
+      "Bash(python3 -c \":*)",
+      "Bash(python3 -m venv .venv)",
+      "Bash(source .venv/bin/activate)",
+      "Bash(pip install -q pydantic python-dotenv loguru tenacity anthropic)",
+      "Bash(pip install -q pandas numpy pyarrow akshare)",
+      "Bash(pip install -q streamlit plotly)",
+      "Bash(pip install -q groq)",
+      "Bash(pip install -q streamlit plotly groq)",
+      "Bash(open http://localhost:8502)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8502)"
+    ]
+  }
+}
