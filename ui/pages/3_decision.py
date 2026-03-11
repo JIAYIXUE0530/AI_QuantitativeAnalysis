@@ -20,7 +20,7 @@ from ui.components.override_manager import (
 
 from ui.style import THINKCELL_CSS
 
-st.set_page_config(page_title="决策中心", layout="wide", page_icon="🎯")
+st.set_page_config(page_title="决策中心", layout="wide", page_icon=None)
 st.markdown(THINKCELL_CSS, unsafe_allow_html=True)
 
 for key, default in [
@@ -33,7 +33,7 @@ for key, default in [
     if key not in st.session_state:
         st.session_state[key] = default
 
-st.title("🎯 决策中心")
+st.title("决策中心")
 st.caption("量化模型为主，人工干预为辅。所有干预均有记录。")
 
 # ═══════════════════════════════════════════════════════════════
@@ -160,7 +160,7 @@ st.caption("""
 **操作说明**:
 - 点击 [调整因子分] 可对某ETF的原始因子分进行微调（Level 2 干预）
 - 点击 [覆盖决策] 可将AI信号改为你的判断，需填写原因（Level 3 干预）
-- 橙色 ⚠️ 表示已存在人工干预
+- 橙色高亮表示已存在人工干预
 """)
 
 scores = state.composite_scores
@@ -179,13 +179,13 @@ for s in scores_filtered:
     is_score_override = s.etf_code in st.session_state.score_overrides
     has_override = is_decision_override or is_score_override
 
-    signal_color = {"BUY": "#E84B4B", "SELL": "#2DB84B", "HOLD": "#F0A500"}
-    color = signal_color.get(s.signal, "#888")
+    signal_color = {"BUY": "#DC2626", "SELL": "#16A34A", "HOLD": "#D97706"}
+    color = signal_color.get(s.signal, "#6B7280")
 
     with st.expander(
-        f"{'⚠️ ' if has_override else ''}#{s.rank} {s.etf_name} ({s.etf_code}) "
+        f"{"[人工] " if has_override else ""}#{s.rank} {s.etf_name} ({s.etf_code}) "
         f"— 综合 {s.composite_score:.1f}分 "
-        f"— {'🔴' if s.signal == 'BUY' else ('🟢' if s.signal == 'SELL' else '🟡')} {s.signal}",
+        f"— {s.signal}",
         expanded=(s.rank <= 5)
     ):
         main_col, action_col = st.columns([3, 2])
@@ -208,7 +208,7 @@ for s in scores_filtered:
                     if is_factor_override:
                         st.markdown(
                             f"<div class='factor-override'><small>{label}</small><br>"
-                            f"<b style='color:#F0A500'>{raw:.0f}</b>⚙️</div>",
+                            f"<b style='color:#D97706'>{raw:.0f}</b> *</div>",
                             unsafe_allow_html=True
                         )
                     else:

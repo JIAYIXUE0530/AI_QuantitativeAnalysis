@@ -17,7 +17,7 @@ from ui.components.charts import (
 )
 from ui.style import THINKCELL_CSS
 
-st.set_page_config(page_title="总览仪表盘", layout="wide", page_icon="📊")
+st.set_page_config(page_title="总览仪表盘", layout="wide", page_icon=None)
 st.markdown(THINKCELL_CSS, unsafe_allow_html=True)
 
 # ── Session State 初始化 ──
@@ -53,7 +53,7 @@ def _refresh_analysis():
 
 
 # ── 顶部控制栏 ──
-st.title("📊 总览仪表盘")
+st.title("总览仪表盘")
 
 col_btn, col_time, col_warn = st.columns([2, 3, 3])
 with col_btn:
@@ -72,17 +72,32 @@ state = st.session_state.pipeline_state
 
 if state is None:
     st.markdown("""
-    ---
-    ### 欢迎使用 AI量化投资系统
-
-    点击上方「刷新分析」按钮，系统将：
-    1. 获取A股ETF历史价格数据
-    2. 计算宏观、板块、多因子评分
-    3. 调用Claude AI分析市场新闻情绪
-    4. 生成综合投资排名与买卖建议
-
-    *首次运行约需 15-30 秒*
-    """)
+    <div style="margin-top:2rem;padding:32px 36px;background:white;border-radius:12px;
+                border:1px solid #E8EDF5;box-shadow:0 2px 12px rgba(0,0,0,0.04)">
+        <h3 style="color:#0D1B2A;margin-bottom:16px;font-size:1.1rem">开始使用</h3>
+        <p style="color:#6B7280;margin-bottom:20px;font-size:0.9rem;line-height:1.7">
+            点击右上角「刷新分析」按钮，系统将自动完成以下步骤：
+        </p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div style="padding:14px 16px;background:#F8FAFF;border-radius:8px;border:1px solid #E8EDF5">
+                <div style="color:#1677FF;font-weight:600;font-size:0.82rem;margin-bottom:4px">STEP 01</div>
+                <div style="color:#374151;font-size:0.88rem">获取 25 只 A 股 ETF 历史价格数据</div>
+            </div>
+            <div style="padding:14px 16px;background:#F8FAFF;border-radius:8px;border:1px solid #E8EDF5">
+                <div style="color:#1677FF;font-weight:600;font-size:0.82rem;margin-bottom:4px">STEP 02</div>
+                <div style="color:#374151;font-size:0.88rem">计算宏观、板块轮动、多因子评分</div>
+            </div>
+            <div style="padding:14px 16px;background:#F8FAFF;border-radius:8px;border:1px solid #E8EDF5">
+                <div style="color:#1677FF;font-weight:600;font-size:0.82rem;margin-bottom:4px">STEP 03</div>
+                <div style="color:#374151;font-size:0.88rem">AI 分析市场新闻，生成情绪评分</div>
+            </div>
+            <div style="padding:14px 16px;background:#F8FAFF;border-radius:8px;border:1px solid #E8EDF5">
+                <div style="color:#1677FF;font-weight:600;font-size:0.82rem;margin-bottom:4px">STEP 04</div>
+                <div style="color:#374151;font-size:0.88rem">输出综合排名与买卖建议，首次约 20 秒</div>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
     st.stop()
 
 if state.errors:
@@ -134,7 +149,7 @@ if state.orchestrator and state.orchestrator.executive_summary:
     """, unsafe_allow_html=True)
 
     if state.orchestrator.key_risks:
-        with st.expander("查看风险提示"):
+        with st.expander("风险提示"):
             for risk in state.orchestrator.key_risks:
                 st.markdown(f"- {risk}")
 
@@ -184,7 +199,7 @@ with mid_col:
         sent = state.sentiment
         val = sent.overall_sentiment
         label = "乐观" if val > 0.2 else ("悲观" if val < -0.2 else "中性")
-        color = "#E84B4B" if val > 0.2 else ("#2DB84B" if val < -0.2 else "#888")
+        color = "#DC2626" if val > 0.2 else ("#16A34A" if val < -0.2 else "#6B7280")
         st.markdown(f"整体情绪: <span style='color:{color};font-weight:bold'>{label} ({val:+.2f})</span>",
                     unsafe_allow_html=True)
         if sent.key_catalysts:
@@ -209,20 +224,20 @@ if state.composite_scores:
     rows = []
     for s in state.composite_scores:
         is_override = s.etf_code in st.session_state.decision_overrides
-        signal_display = f"{'⚠️ ' if is_override else ''}{'🔴' if s.signal == 'BUY' else ('🟢' if s.signal == 'SELL' else '🟡')} {s.signal}"
+        prefix = "[人工] " if is_override else ""
         rows.append({
             "排名": s.rank,
             "代码": s.etf_code,
             "名称": s.etf_name,
             "板块": s.sector,
-            "综合评分": f"{s.composite_score:.1f}",
-            "宏观": f"{s.raw_scores.get('macro', 0):.0f}",
-            "轮动": f"{s.raw_scores.get('rotation', 0):.0f}",
-            "动量": f"{s.raw_scores.get('momentum', 0):.0f}",
-            "量能": f"{s.raw_scores.get('volume', 0):.0f}",
-            "趋势": f"{s.raw_scores.get('trend', 0):.0f}",
-            "情绪": f"{s.raw_scores.get('sentiment', 0):.0f}",
-            "信号": signal_display,
+            "综合评分": s.composite_score,
+            "宏观": int(s.raw_scores.get('macro', 0)),
+            "轮动": int(s.raw_scores.get('rotation', 0)),
+            "动量": int(s.raw_scores.get('momentum', 0)),
+            "量能": int(s.raw_scores.get('volume', 0)),
+            "趋势": int(s.raw_scores.get('trend', 0)),
+            "情绪": int(s.raw_scores.get('sentiment', 0)),
+            "信号": f"{prefix}{s.signal}",
         })
 
     df = pd.DataFrame(rows)
@@ -234,5 +249,11 @@ if state.composite_scores:
             "综合评分": st.column_config.ProgressColumn(
                 "综合评分", min_value=0, max_value=100, format="%.1f"
             ),
+            "宏观": st.column_config.NumberColumn("宏观", format="%d"),
+            "轮动": st.column_config.NumberColumn("轮动", format="%d"),
+            "动量": st.column_config.NumberColumn("动量", format="%d"),
+            "量能": st.column_config.NumberColumn("量能", format="%d"),
+            "趋势": st.column_config.NumberColumn("趋势", format="%d"),
+            "情绪": st.column_config.NumberColumn("情绪", format="%d"),
         }
     )

@@ -15,7 +15,7 @@ from core.backtester import run_backtest
 from ui.components.charts import render_equity_curve
 from ui.style import THINKCELL_CSS
 
-st.set_page_config(page_title="策略回测", layout="wide", page_icon="📈")
+st.set_page_config(page_title="策略回测", layout="wide")
 st.markdown(THINKCELL_CSS, unsafe_allow_html=True)
 
 for key, default in [
@@ -25,7 +25,7 @@ for key, default in [
     if key not in st.session_state:
         st.session_state[key] = default
 
-st.title("📈 策略回测")
+st.title("策略回测")
 st.caption("走前向回测（Walk-forward），无前视偏差。回测不使用LLM以避免未来数据问题。")
 
 # ── 参数设置 ──
@@ -142,7 +142,7 @@ if result.equity_curve is not None and len(result.equity_curve) > 0:
     fig_dd.add_trace(go.Scatter(
         x=drawdown.index, y=drawdown.values,
         fill="tozeroy", fillcolor="rgba(232,75,75,0.2)",
-        line={"color": "#E84B4B"},
+        line={"color": "#DC2626"},
         name="回撤"
     ))
     fig_dd.update_layout(
@@ -170,4 +170,4 @@ st.divider()
 with st.expander("回测配置详情"):
     st.json(result.config_summary)
     st.caption(f"回测区间: {result.start_date} ~ {result.end_date}")
-    st.caption("⚠️ 注意：回测结果不代表未来收益。历史绩效仅供参考。")
+    st.caption("注意：回测结果不代表未来收益。历史绩效仅供参考。")

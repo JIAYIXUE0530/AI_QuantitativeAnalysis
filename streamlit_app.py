@@ -1,5 +1,5 @@
 """
-Streamlit Cloud 入口 - 使用 st.navigation() 明确定义页面
+Streamlit Cloud 入口
 """
 import sys
 import os
@@ -12,16 +12,16 @@ import streamlit as st
 
 st.set_page_config(
     page_title="AI量化投资系统",
-    page_icon="📊",
+    page_icon="https://img.icons8.com/fluency/48/combo-chart.png",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
 pages = [
-    st.Page("ui/pages/1_dashboard.py", title="总览仪表盘", icon="📊"),
-    st.Page("ui/pages/2_analysis.py",  title="因子分析",   icon="🔍"),
-    st.Page("ui/pages/3_decision.py",  title="决策中心",   icon="🎯"),
-    st.Page("ui/pages/4_backtest.py",  title="策略回测",   icon="📈"),
+    st.Page("ui/pages/1_dashboard.py", title="总览仪表盘"),
+    st.Page("ui/pages/2_analysis.py",  title="因子分析"),
+    st.Page("ui/pages/3_decision.py",  title="决策中心"),
+    st.Page("ui/pages/4_backtest.py",  title="策略回测"),
 ]
 
 pg = st.navigation(pages)

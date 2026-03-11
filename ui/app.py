@@ -13,7 +13,7 @@ from ui.style import THINKCELL_CSS
 
 st.set_page_config(
     page_title="AI量化投资系统",
-    page_icon="📊",
+    page_icon=None,
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -58,7 +58,7 @@ with st.sidebar:
         st.caption(f"最后更新: {st.session_state.last_refresh.strftime('%H:%M')}")
 
     if st.session_state.decision_overrides:
-        st.warning(f"⚠️ 存在 {len(st.session_state.decision_overrides)} 个人工干预")
+        st.warning(f"注意：存在 {len(st.session_state.decision_overrides)} 个人工干预")
 
 # ── 主页（重定向到仪表盘）──
 st.title("AI量化投资系统")
@@ -77,10 +77,10 @@ st.markdown("""
 
 col1, col2, col3, col4 = st.columns(4)
 with col1:
-    st.page_link("pages/1_dashboard.py", label="总览仪表盘", icon="📊")
+    st.page_link("pages/1_dashboard.py", label="总览仪表盘", )
 with col2:
-    st.page_link("pages/2_analysis.py", label="因子分析", icon="🔍")
+    st.page_link("pages/2_analysis.py", label="因子分析", )
 with col3:
-    st.page_link("pages/3_decision.py", label="决策中心", icon="🎯")
+    st.page_link("pages/3_decision.py", label="决策中心", )
 with col4:
-    st.page_link("pages/4_backtest.py", label="策略回测", icon="📈")
+    st.page_link("pages/4_backtest.py", label="策略回测", )
