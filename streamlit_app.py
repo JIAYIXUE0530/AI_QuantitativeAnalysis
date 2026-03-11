@@ -22,6 +22,7 @@ pages = [
     st.Page("ui/pages/2_analysis.py",  title="因子分析"),
     st.Page("ui/pages/3_decision.py",  title="决策中心"),
     st.Page("ui/pages/4_backtest.py",  title="策略回测"),
+    st.Page("ui/pages/0_guide.py",     title="使用手册"),
 ]
 
 pg = st.navigation(pages)
