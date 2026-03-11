@@ -2,7 +2,9 @@
 决策中心 - 人机协同决策页，三层干预机制
 """
 import sys, os
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+if ROOT not in sys.path:
+    sys.path.insert(0, ROOT)
 
 import streamlit as st
 import pandas as pd
@@ -16,18 +18,10 @@ from ui.components.override_manager import (
     save_decision_override, clear_decision_override
 )
 
-st.set_page_config(page_title="决策中心 - TRAE", layout="wide", page_icon="🎯")
+from ui.style import THINKCELL_CSS
 
-st.markdown("""<style>
-.override-badge { background: #F0A500; color: white; padding: 2px 6px;
-                  border-radius: 3px; font-size: 11px; }
-.signal-buy { color: #E84B4B; font-weight: bold; }
-.signal-sell { color: #2DB84B; font-weight: bold; }
-.signal-hold { color: #F0A500; font-weight: bold; }
-.claude-card { background: rgba(30,111,191,0.1); border-left: 3px solid #1E6FBF;
-               padding: 12px; border-radius: 4px; margin: 8px 0; }
-.factor-override { background: rgba(240,165,0,0.15); border-radius: 4px; padding: 4px; }
-</style>""", unsafe_allow_html=True)
+st.set_page_config(page_title="决策中心", layout="wide", page_icon="🎯")
+st.markdown(THINKCELL_CSS, unsafe_allow_html=True)
 
 for key, default in [
     ("pipeline_state", None),

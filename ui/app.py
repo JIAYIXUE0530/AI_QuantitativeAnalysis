@@ -1,5 +1,5 @@
 """
-TRAE AI量化投资系统 - Streamlit 主入口
+AI量化投资系统 - Streamlit 主入口
 """
 import sys
 import os
@@ -9,28 +9,15 @@ import streamlit as st
 from ui.components.override_manager import (
     load_weights, load_score_overrides, load_decision_overrides
 )
+from ui.style import THINKCELL_CSS
 
 st.set_page_config(
-    page_title="TRAE AI 量化投资系统",
+    page_title="AI量化投资系统",
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded",
 )
-
-# ── 全局 CSS ──
-st.markdown("""
-<style>
-    .main .block-container { padding-top: 1.5rem; }
-    .stMetric { background: rgba(255,255,255,0.05); border-radius: 8px; padding: 8px; }
-    .signal-buy { color: #E84B4B; font-weight: bold; }
-    .signal-sell { color: #2DB84B; font-weight: bold; }
-    .signal-hold { color: #F0A500; font-weight: bold; }
-    .override-badge { background: #F0A500; color: white; padding: 2px 8px;
-                       border-radius: 4px; font-size: 11px; }
-    .claude-card { background: rgba(30, 111, 191, 0.1); border-left: 3px solid #1E6FBF;
-                   padding: 12px; border-radius: 4px; margin: 8px 0; }
-</style>
-""", unsafe_allow_html=True)
+st.markdown(THINKCELL_CSS, unsafe_allow_html=True)
 
 # ── Session State 初始化 ──
 if "pipeline_state" not in st.session_state:
@@ -50,7 +37,7 @@ if "last_refresh" not in st.session_state:
 
 # ── 侧边栏 ──
 with st.sidebar:
-    st.title("TRAE 量化")
+    st.title("AI量化")
     st.caption("AI驱动 · 人机协同 · ETF策略")
     st.divider()
 
@@ -74,7 +61,7 @@ with st.sidebar:
         st.warning(f"⚠️ 存在 {len(st.session_state.decision_overrides)} 个人工干预")
 
 # ── 主页（重定向到仪表盘）──
-st.title("TRAE AI 量化投资系统")
+st.title("AI量化投资系统")
 st.markdown("""
 > 基于**多因子量化模型** + **Claude AI分析**的A股ETF智能决策平台
 

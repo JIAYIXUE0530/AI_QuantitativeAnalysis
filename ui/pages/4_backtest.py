@@ -2,7 +2,9 @@
 策略回测页
 """
 import sys, os
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+if ROOT not in sys.path:
+    sys.path.insert(0, ROOT)
 
 import streamlit as st
 import pandas as pd
@@ -11,8 +13,10 @@ from datetime import datetime, timedelta
 from config.settings import config, WeightConfig
 from core.backtester import run_backtest
 from ui.components.charts import render_equity_curve
+from ui.style import THINKCELL_CSS
 
-st.set_page_config(page_title="策略回测 - TRAE", layout="wide", page_icon="📈")
+st.set_page_config(page_title="策略回测", layout="wide", page_icon="📈")
+st.markdown(THINKCELL_CSS, unsafe_allow_html=True)
 
 for key, default in [
     ("custom_weights", config.default_weights.to_dict()),

@@ -2,7 +2,9 @@
 总览仪表盘 - 市场概览、Top picks、宏观状态
 """
 import sys, os
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+if ROOT not in sys.path:
+    sys.path.insert(0, ROOT)
 
 import streamlit as st
 import pandas as pd
@@ -13,19 +15,10 @@ from core.pipeline import run_full_pipeline
 from ui.components.charts import (
     render_sector_heatmap, render_macro_radar, render_score_gauge
 )
+from ui.style import THINKCELL_CSS
 
-st.set_page_config(page_title="总览仪表盘 - TRAE", layout="wide", page_icon="📊")
-
-# ── CSS ──
-st.markdown("""<style>
-.signal-buy { color: #E84B4B; font-weight: bold; font-size: 1.1em; }
-.signal-sell { color: #2DB84B; font-weight: bold; font-size: 1.1em; }
-.signal-hold { color: #F0A500; font-weight: bold; font-size: 1.1em; }
-.claude-card { background: rgba(30,111,191,0.1); border-left: 3px solid #1E6FBF;
-               padding: 12px; border-radius: 4px; margin: 8px 0; }
-.override-badge { background: #F0A500; color: white; padding: 2px 6px;
-                  border-radius: 3px; font-size: 10px; margin-left: 4px; }
-</style>""", unsafe_allow_html=True)
+st.set_page_config(page_title="总览仪表盘", layout="wide", page_icon="📊")
+st.markdown(THINKCELL_CSS, unsafe_allow_html=True)
 
 # ── Session State 初始化 ──
 for key, default in [
@@ -80,7 +73,7 @@ state = st.session_state.pipeline_state
 if state is None:
     st.markdown("""
     ---
-    ### 欢迎使用 TRAE AI 量化投资系统
+    ### 欢迎使用 AI量化投资系统
 
     点击上方「刷新分析」按钮，系统将：
     1. 获取A股ETF历史价格数据

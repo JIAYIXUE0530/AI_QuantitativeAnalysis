@@ -2,7 +2,9 @@
 因子分析页 - 深入分析单只ETF的因子构成
 """
 import sys, os
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+if ROOT not in sys.path:
+    sys.path.insert(0, ROOT)
 
 import streamlit as st
 import pandas as pd
@@ -14,8 +16,10 @@ from core.models import CompositeScore
 from ui.components.charts import (
     render_factor_waterfall, render_macro_radar, render_sector_heatmap
 )
+from ui.style import THINKCELL_CSS
 
-st.set_page_config(page_title="因子分析 - TRAE", layout="wide", page_icon="🔍")
+st.set_page_config(page_title="因子分析", layout="wide", page_icon="🔍")
+st.markdown(THINKCELL_CSS, unsafe_allow_html=True)
 
 for key, default in [
     ("pipeline_state", None),
