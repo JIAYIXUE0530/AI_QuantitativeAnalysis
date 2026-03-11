@@ -55,11 +55,11 @@ if score is None:
 # ── 顶部评分概览 ──
 st.divider()
 m1, m2, m3, m4, m5 = st.columns(5)
-signal_color = {"BUY": "#DC2626", "SELL": "#16A34A", "HOLD": "#D97706"}
+signal_color = {"BUY": "#B85C5C", "SELL": "#5A8A6A", "HOLD": "#C4956A"}
 with m1:
     st.metric("综合评分", f"{score.composite_score:.1f}", f"排名 #{score.rank}")
 with m2:
-    color = signal_color.get(score.signal, "#6B7280")
+    color = signal_color.get(score.signal, "#8A95A0")
     st.markdown(f"**信号**<br><span style='color:{color};font-size:1.5em'>{score.signal}</span>",
                 unsafe_allow_html=True)
 with m3:
@@ -95,7 +95,7 @@ with col_detail:
     for factor, label in factor_labels.items():
         raw = score.raw_scores.get(factor, 0)
         weight = st.session_state.custom_weights.get(factor, 0)
-        bar_color = "#DC2626" if raw >= 65 else ("#D97706" if raw >= 45 else "#16A34A")
+        bar_color = "#B85C5C" if raw >= 65 else ("#C4956A" if raw >= 45 else "#5A8A6A")
         st.markdown(f"{label} `×{weight:.0%}`")
         st.progress(raw / 100, text=f"{raw:.0f}分")
 
@@ -197,8 +197,8 @@ try:
                 low=price_df["low"],
                 close=price_df["close"],
                 name="K线",
-                increasing_line_color="#DC2626",
-                decreasing_line_color="#16A34A",
+                increasing_line_color="#B85C5C",
+                decreasing_line_color="#5A8A6A",
             ))
         else:
             fig.add_trace(go.Scatter(x=price_df.index, y=close, name="收盘价",
@@ -208,9 +208,9 @@ try:
         ema20 = close.ewm(span=20).mean()
         ema60 = close.ewm(span=60).mean()
         fig.add_trace(go.Scatter(x=price_df.index, y=ema20,
-                                  name="EMA20", line={"color": "#D97706", "dash": "dot"}))
+                                  name="EMA20", line={"color": "#C4956A", "dash": "dot"}))
         fig.add_trace(go.Scatter(x=price_df.index, y=ema60,
-                                  name="EMA60", line={"color": "#6B7280", "dash": "dot"}))
+                                  name="EMA60", line={"color": "#8A95A0", "dash": "dot"}))
 
         fig.update_layout(
             title=f"{score.etf_name} 近120日走势",

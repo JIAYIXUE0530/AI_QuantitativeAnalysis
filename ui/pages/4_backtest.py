@@ -142,7 +142,7 @@ if result.equity_curve is not None and len(result.equity_curve) > 0:
     fig_dd.add_trace(go.Scatter(
         x=drawdown.index, y=drawdown.values,
         fill="tozeroy", fillcolor="rgba(232,75,75,0.2)",
-        line={"color": "#DC2626"},
+        line={"color": "#B85C5C"},
         name="回撤"
     ))
     fig_dd.update_layout(

@@ -73,26 +73,26 @@ state = st.session_state.pipeline_state
 if state is None:
     st.markdown("""
     <div style="margin-top:2rem;padding:32px 36px;background:white;border-radius:12px;
-                border:1px solid #E8EDF5;box-shadow:0 2px 12px rgba(0,0,0,0.04)">
-        <h3 style="color:#0D1B2A;margin-bottom:16px;font-size:1.1rem">开始使用</h3>
-        <p style="color:#6B7280;margin-bottom:20px;font-size:0.9rem;line-height:1.7">
+                border:1px solid #DDE4EE;box-shadow:0 2px 12px rgba(0,0,0,0.04)">
+        <h3 style="color:#2C3A4A;margin-bottom:16px;font-size:1.1rem">开始使用</h3>
+        <p style="color:#8A95A0;margin-bottom:20px;font-size:0.9rem;line-height:1.7">
             点击右上角「刷新分析」按钮，系统将自动完成以下步骤：
         </p>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-            <div style="padding:14px 16px;background:#F8FAFF;border-radius:8px;border:1px solid #E8EDF5">
-                <div style="color:#1677FF;font-weight:600;font-size:0.82rem;margin-bottom:4px">STEP 01</div>
+            <div style="padding:14px 16px;background:#F4F7FA;border-radius:8px;border:1px solid #DDE4EE">
+                <div style="color:#7B9EC7;font-weight:600;font-size:0.82rem;margin-bottom:4px">STEP 01</div>
                 <div style="color:#374151;font-size:0.88rem">获取 25 只 A 股 ETF 历史价格数据</div>
             </div>
-            <div style="padding:14px 16px;background:#F8FAFF;border-radius:8px;border:1px solid #E8EDF5">
-                <div style="color:#1677FF;font-weight:600;font-size:0.82rem;margin-bottom:4px">STEP 02</div>
+            <div style="padding:14px 16px;background:#F4F7FA;border-radius:8px;border:1px solid #DDE4EE">
+                <div style="color:#7B9EC7;font-weight:600;font-size:0.82rem;margin-bottom:4px">STEP 02</div>
                 <div style="color:#374151;font-size:0.88rem">计算宏观、板块轮动、多因子评分</div>
             </div>
-            <div style="padding:14px 16px;background:#F8FAFF;border-radius:8px;border:1px solid #E8EDF5">
-                <div style="color:#1677FF;font-weight:600;font-size:0.82rem;margin-bottom:4px">STEP 03</div>
+            <div style="padding:14px 16px;background:#F4F7FA;border-radius:8px;border:1px solid #DDE4EE">
+                <div style="color:#7B9EC7;font-weight:600;font-size:0.82rem;margin-bottom:4px">STEP 03</div>
                 <div style="color:#374151;font-size:0.88rem">AI 分析市场新闻，生成情绪评分</div>
             </div>
-            <div style="padding:14px 16px;background:#F8FAFF;border-radius:8px;border:1px solid #E8EDF5">
-                <div style="color:#1677FF;font-weight:600;font-size:0.82rem;margin-bottom:4px">STEP 04</div>
+            <div style="padding:14px 16px;background:#F4F7FA;border-radius:8px;border:1px solid #DDE4EE">
+                <div style="color:#7B9EC7;font-weight:600;font-size:0.82rem;margin-bottom:4px">STEP 04</div>
                 <div style="color:#374151;font-size:0.88rem">输出综合排名与买卖建议，首次约 20 秒</div>
             </div>
         </div>
@@ -199,7 +199,7 @@ with mid_col:
         sent = state.sentiment
         val = sent.overall_sentiment
         label = "乐观" if val > 0.2 else ("悲观" if val < -0.2 else "中性")
-        color = "#DC2626" if val > 0.2 else ("#16A34A" if val < -0.2 else "#6B7280")
+        color = "#B85C5C" if val > 0.2 else ("#5A8A6A" if val < -0.2 else "#8A95A0")
         st.markdown(f"整体情绪: <span style='color:{color};font-weight:bold'>{label} ({val:+.2f})</span>",
                     unsafe_allow_html=True)
         if sent.key_catalysts:

@@ -6,14 +6,14 @@ import pandas as pd
 from core.models import CompositeScore, RotationSignal
 
 # ThinkCell Blue 配色
-TC_DARK   = "#0D1B2A"
-TC_MID    = "#1677FF"
+TC_DARK   = "#2C3A4A"
+TC_MID    = "#7B9EC7"
 TC_LIGHT  = "#0EA5E9"
-TC_PALE   = "#EFF6FF"
-TC_RED    = "#DC2626"
-TC_GREEN  = "#16A34A"
-TC_ORANGE = "#D97706"
-TC_GRAY   = "#6B7280"
+TC_PALE   = "#EEF3F8"
+TC_RED    = "#B85C5C"
+TC_GREEN  = "#5A8A6A"
+TC_ORANGE = "#C4956A"
+TC_GRAY   = "#8A95A0"
 
 _FONT = {"family": "Calibri, PingFang SC, Microsoft YaHei, sans-serif",
          "color": TC_DARK}

@@ -179,8 +179,8 @@ for s in scores_filtered:
     is_score_override = s.etf_code in st.session_state.score_overrides
     has_override = is_decision_override or is_score_override
 
-    signal_color = {"BUY": "#DC2626", "SELL": "#16A34A", "HOLD": "#D97706"}
-    color = signal_color.get(s.signal, "#6B7280")
+    signal_color = {"BUY": "#B85C5C", "SELL": "#5A8A6A", "HOLD": "#C4956A"}
+    color = signal_color.get(s.signal, "#8A95A0")
 
     with st.expander(
         f"{"[人工] " if has_override else ""}#{s.rank} {s.etf_name} ({s.etf_code}) "
@@ -208,7 +208,7 @@ for s in scores_filtered:
                     if is_factor_override:
                         st.markdown(
                             f"<div class='factor-override'><small>{label}</small><br>"
-                            f"<b style='color:#D97706'>{raw:.0f}</b> *</div>",
+                            f"<b style='color:#C4956A'>{raw:.0f}</b> *</div>",
                             unsafe_allow_html=True
                         )
                     else:
