@@ -104,28 +104,36 @@ h3 {
    侧边栏
 ════════════════════════════════════════ */
 [data-testid="stSidebar"] {
-    background: #0D1B2A !important;
-    border-right: 1px solid #1E2D3D;
+    background: #1677FF !important;
+    border-right: none;
 }
 [data-testid="stSidebar"] * {
-    color: #94A3B8 !important;
+    color: rgba(255,255,255,0.85) !important;
 }
 [data-testid="stSidebar"] h1,
 [data-testid="stSidebar"] h2,
 [data-testid="stSidebar"] h3,
 [data-testid="stSidebar"] strong {
-    color: #E2E8F0 !important;
+    color: white !important;
 }
 [data-testid="stSidebar"] hr {
-    border-color: #1E3A5F !important;
+    border-color: rgba(255,255,255,0.2) !important;
 }
 [data-testid="stSidebar"] .stSlider label {
-    color: #CBD5E1 !important;
+    color: rgba(255,255,255,0.9) !important;
     font-size: 0.82rem !important;
 }
 [data-testid="stSidebar"] [data-testid="stSliderThumbValue"] {
-    color: #1677FF !important;
+    color: white !important;
     font-weight: 600 !important;
+}
+[data-testid="stSidebar"] .stButton > button {
+    border-color: rgba(255,255,255,0.4) !important;
+    color: white !important;
+    background: rgba(255,255,255,0.12) !important;
+}
+[data-testid="stSidebar"] .stButton > button:hover {
+    background: rgba(255,255,255,0.22) !important;
 }
 
 /* ════════════════════════════════════════
